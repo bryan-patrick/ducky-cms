@@ -1,3 +1,5 @@
+<img src="assets/svg/ducky-logo-final.svg" height="250" />
+
 # ducky-cms
 
 A simple, flat, PHP-based CMS with SQLite.
