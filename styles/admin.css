@@ -7,6 +7,8 @@
 @import "shared/typography.css";
 @import "admin/admin-layout.css";
 @import "admin/admin-menu.css";
+@import "admin/pages.css";
+@import "admin/pages-edit.css";
 @import "shared/util.css";
 @import "shared/forms.css";
 @import "shared/animations.css";

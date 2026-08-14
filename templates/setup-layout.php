@@ -33,7 +33,7 @@ function dcms_render_setup_layout(string $title = '', string $content = ''): voi
       <header>
         <span class="branding">
           <?= dcms_render_ducky_logo(["width" => 75]) ?>
-          <span class="site-title">ducky-cms</span>
+          <span class="site-title">Ducky CMS</span>
         </span>
       </header>
       <main>
@@ -43,7 +43,7 @@ function dcms_render_setup_layout(string $title = '', string $content = ''): voi
         <?= $content ?>
       </main>
       <footer>
-        <span>&copy; <?= date('Y') ?> ducky-cms</span>
+        <span>&copy; <?= date('Y') ?> Ducky CMS</span>
       </footer>
     </div>
   </div>

@@ -17,10 +17,9 @@
   text-decoration: none;
   cursor: pointer;
   flex-grow: 0;
-  border: 0;
-  border-radius: 0.25rem;
   overflow: clip;
   transition: 80ms ease;
+  border: 0;
 
   &.outline {
     border: 2px solid var(--color-gray-light);
@@ -54,5 +53,21 @@
 
   &:focus {
     outline: 0.5rem solid var(--color-accent-primary-alpha);
+  }
+}
+
+a:not(.button) {
+  color: var(--color-accent-primary);
+
+  &:visited {
+    color: var(--color-brand-orange-dark);
+
+    &:hover {
+      color: var(--color-brand-orange);
+    }
+  }
+
+  &:hover {
+    color: var(--color-accent-primary);
   }
 }

@@ -1,7 +1,5 @@
 /*
- * Admin menu: primary navigation and animated desktop submenu
- *
- * Primary navigation block
+ * Admin menu - primary navigation submenu
  */
 aside {
   nav {
@@ -154,25 +152,6 @@ aside {
 
           >details[open]>summary .chevron {
             transform: rotate(-45deg);
-          }
-        }
-      }
-    }
-  }
-}
-
-/*
- * Reduced motion override
- */
-@media (prefers-reduced-motion: reduce) {
-  aside {
-    nav {
-      .nav-inner {
-        ul {
-          li {
-            >details>ul.submenu {
-              transition: none;
-            }
           }
         }
       }

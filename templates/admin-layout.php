@@ -40,7 +40,7 @@ function dcms_render_dashboard_layout(
   <aside>
     <div class="branding">
       <?= dcms_render_ducky_logo(["width" => 35]) ?>
-      <span class="site-title">ducky-cms</span>
+      <span class="site-title">Ducky CMS</span>
     </div>
     <nav role="navigation" aria-label="Main menu">
       <div class="nav-inner">
@@ -55,34 +55,7 @@ function dcms_render_dashboard_layout(
             'name'       => 'Pages',
             'width'      => 24,
             'href'       => $pages_url,
-            'is_current' => in_array($current_menu_item, ['pages','pages-create','pages-drafts','pages-trash','pages-published'], true),
-            'children'   => [
-              [
-                'name'       => 'All Pages',
-                'href'       => $pages_url,
-                'is_current' => ($current_menu_item === 'pages'),
-              ],
-              [
-                'name'       => 'Create Page',
-                'href'       => $pages_url . 'create/',
-                'is_current' => ($current_menu_item === 'pages-create'),
-              ],
-              [
-                'name'       => 'Drafts',
-                'href'       => $pages_url . '?status=draft',
-                'is_current' => ($current_menu_item === 'pages-drafts'),
-              ],
-              [
-                'name'       => 'Published',
-                'href'       => $pages_url . '?status=published',
-                'is_current' => ($current_menu_item === 'pages-published'),
-              ],
-              [
-                'name'       => 'Trash',
-                'href'       => $pages_url . '?status=trash',
-                'is_current' => ($current_menu_item === 'pages-trash'),
-              ],
-            ],
+            'is_current' => ($current_menu_item === 'pages'),
           ],
           [
             'name'       => 'Settings',

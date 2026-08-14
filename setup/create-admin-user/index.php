@@ -161,7 +161,7 @@ ob_start();
   <section>
     <?php if ($success): ?>
       <?= $message ?>
-      <div style="margin-top: 1rem;">
+      <div class="top-margin">
         <a href="<?= dcms_get_base_url() ?>auth/login/" class="button">Continue to Login</a>
       </div>
     <?php else: ?>
@@ -183,11 +183,13 @@ ob_start();
             <input id="password" name="password" type="password" placeholder="••••••••••••" autocomplete="off" required
                    aria-describedby="password-help">
           </div>
-          <button class="button" type="submit">Create User</button>
+          <div class="form-input-container">
+            <button class="button" type="submit">Create User</button>
+          </div>
         </form>
       <?php else: ?>
         <?= dcms_alert('Access to create admin is blocked. The setup token is missing, invalid, expired, or already used.', AlertType::warning) ?>
-        <div style="margin-top: 1rem;">
+        <div class="top-margin">
           <a href="<?= dcms_get_base_url() ?>setup/welcome/" class="button outline small">Back to Setup</a>
         </div>
       <?php endif; ?>
