@@ -38,6 +38,6 @@ try {
 ob_start();
 ?>
   <h1>Dashboard</h1>
-  <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>! You’ve made it to the DuckyCMS dashboard.</p>
+  <p>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>! You’ve made it to the Ducky CMS dashboard.</p>
   <?php
 dcms_render_dashboard_layout('Dashboard', ob_get_clean(), 'dashboard');

@@ -2,10 +2,13 @@
 
 namespace DuckyCMS\Setup;
 
+use DuckyCMS\AlertType;
 use PDOException;
 use function DuckyCMS\DB\get_user_by_username;
 use function DuckyCMS\DB\update_user_session_token;
+use function DuckyCMS\dcms_alert;
 use function DuckyCMS\dcms_get_base_url;
+use function DuckyCMS\dcms_require_module;
 
 /**
  * Exit if not accessed directly
@@ -22,7 +25,6 @@ require_once '../../bootstrap.php';
 /*
  * Load required modules using lazy loading
  */
-use function DuckyCMS\dcms_require_module;
 dcms_require_module('db');
 dcms_require_module('templates');
 
@@ -72,9 +74,10 @@ function handle_login(): string
       exit;
     }
 
-    return '<p>Invalid username or password.</p>';
+    return dcms_alert('Invalid username or password.', AlertType::warning);
   } catch (PDOException $e) {
-    return '<p>Error: ' . htmlspecialchars($e->getMessage()) . '</p>';
+    $error_message = htmlspecialchars($e->getMessage());
+    return dcms_alert('Error: ' . $error_message, AlertType::danger);
   }
 }
 
@@ -82,7 +85,7 @@ $message = handle_login();
 
 ob_start();
 ?>
-<p>Please log in to your account to access the dashboard.</p>
+  <p>Please log in to your account to access the dashboard.</p>
   <form method="post">
     <div>
       <label for="username">Username:</label>
@@ -92,6 +95,7 @@ ob_start();
       <label for="password">Password:</label>
       <input id="password" name="password" type="password" required><br>
     </div>
+    <br/>
     <button class="button">Log In</button>
   </form>
   <?php if (!empty($message)) echo $message; ?>

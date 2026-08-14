@@ -27,11 +27,9 @@ function get_db_connection(?string $db_path = null): PDO
   $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
   /*
-   * Enable SQLite WAL (Write-Ahead Logging) mode and increase cache size
-   * for improved concurrent access performance. WAL mode allows multiple
-   * readers to access the database simultaneously while a writer is active,
-   * which is essential for a CMS where admins might be editing content
-   * while visitors browse the site.
+   * Enable SQLite WAL (Write-Ahead Logging) mode and increase cache size.
+   * WAL mode allows multiple readers to access the database simultaneously while a writer is active 
+   * (which for PHP I might add is f'ing awesome)
    */
   $pdo->exec('PRAGMA journal_mode=WAL');
   $pdo->exec('PRAGMA cache_size=10000');
@@ -285,6 +283,23 @@ function update_page(int $id, string $title, string $slug, string $content, ?str
   }
 
   return 'Failed to update page';
+}
+
+/**
+ * Update a page's status
+ *
+ * @param int $id
+ * @param string $status
+ * @param string|null $db_path
+ * @return bool
+ * @throws PDOException
+ */
+function update_page_status(int $id, string $status, ?string $db_path = null): bool
+{
+  $status = dcms_normalize_status($status);
+  $query = "UPDATE pages SET status = :status WHERE id = :id";
+  $stmt = execute_query($query, [':status' => $status, ':id' => $id], $db_path);
+  return $stmt->rowCount() > 0;
 }
 
 /**

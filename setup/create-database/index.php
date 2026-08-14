@@ -21,7 +21,6 @@ require_once dirname(__DIR__, 2) . '/bootstrap.php';
 /*
  * Load required modules using lazy loading
  */
-
 dcms_require_module('db');
 dcms_require_module('templates');
 dcms_require_module('partials');
@@ -46,15 +45,13 @@ function dcms_create_db(): string
       initialize_database(require DUCKY_ROOT . '/db/schema.php', $db_path);
 
       /**
-       * If a site URL was provided earlier in the setup, persist it now that the DB exists
+       * Automatically set the site URL to the auto-detected base URL
        */
-      if (!empty($_SESSION['pending_site_url'])) {
-        try {
-          set_setting('site_url', (string)$_SESSION['pending_site_url'], $db_path);
-        } catch (PDOException $e) {
-          error_log($e);
-        }
-        unset($_SESSION['pending_site_url']);
+      try {
+        $site_url = dcms_get_base_url();
+        set_setting('site_url', $site_url, $db_path);
+      } catch (PDOException $e) {
+        error_log($e);
       }
 
       /**
@@ -70,7 +67,7 @@ function dcms_create_db(): string
         set_setting('setup_token_used', '0', $db_path);
 
         /**
-         * Bind minimal context to session if needed later (no token value stored)
+         * Mark database as initialized in session
          */
         $_SESSION['db_initialized'] = true;
 
@@ -98,7 +95,8 @@ $message = dcms_create_db();
 ob_start();
 
 if (!dcms_db_exists()) : ?>
-  <p>This will generate a lightweight SQLite DB named <code>ducky.sqlite</code> to store your site content.</p>
+  <p>This creates a lightweight SQLite database named <code>ducky.sqlite</code> for storing your site’s content and settings.</p>
+  <p>For more information on why we use SQLite, see <a href="https://sqlite.org/features.html">Features Of SQLite</a>.</p>
   <form method="post">
     <button class="button" type="submit">Create Database</button>
   </form>

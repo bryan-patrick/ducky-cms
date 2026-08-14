@@ -2,7 +2,7 @@
 /**
  * Minimal bootstrap for DuckyCMS with lazy loading support.
  * Only defines DUCKY_ROOT and loads core functions.
- * Additional modules are loaded on demand via dcms_require_module().
+ * Additional modules are loaded on-demand via dcms_require_module().
  */
 
 if (!defined('DUCKY_ROOT')) {

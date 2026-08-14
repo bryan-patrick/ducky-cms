@@ -4,7 +4,6 @@ require_once __DIR__ . '/../../bootstrap.php';
 /*
  * Load required modules using lazy loading
  */
-
 use function DuckyCMS\DB\dcms_count_pages_by_status;
 use function DuckyCMS\DB\dcms_get_page_counts_by_status;
 use function DuckyCMS\DB\dcms_get_pages_by_status;
@@ -15,7 +14,6 @@ use function DuckyCMS\Setup\dcms_render_dashboard_layout;
 dcms_require_module('db');
 dcms_require_module('templates');
 dcms_require_module('admin');
-
 
 $base_url = dcms_get_base_url();
 
@@ -40,7 +38,7 @@ $counts          = dcms_get_page_counts_by_status();
 $rows            = dcms_get_pages_by_status($status, $perPage, $offset);
 $total           = dcms_count_pages_by_status($status);
 $totalPages      = max(1, (int)ceil($total / $perPage));
-$create_page_url = $base_url . 'admin/pages/create/';
+$create_page_url = $base_url . 'admin/pages/edit/';
 
 ob_start();
 ?>

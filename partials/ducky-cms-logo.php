@@ -1,6 +1,6 @@
 <?php
 /**
- * Renders the ducky-cms logo
+ * Renders the Ducky CMS logo
  *
  * Contains optional sunset gradient for duck body
  * Stroke gradient for page outline and fold
