@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../bootstrap.php';
 /*
  * Load required modules using lazy loading
  */
+use function DuckyCMS\dcms_require_login;
 use function DuckyCMS\DB\dcms_count_pages_by_status;
 use function DuckyCMS\DB\dcms_get_page_counts_by_status;
 use function DuckyCMS\DB\dcms_get_pages_by_status;
@@ -11,6 +12,8 @@ use function DuckyCMS\dcms_get_base_url;
 use function DuckyCMS\dcms_require_module;
 use function DuckyCMS\Setup\dcms_render_dashboard_layout;
 
+dcms_require_module('auth');
+dcms_require_login();
 dcms_require_module('db');
 dcms_require_module('templates');
 dcms_require_module('admin');
@@ -32,7 +35,7 @@ $perPage = 25;
 $offset  = ($page - 1) * $perPage;
 
 /**
- * Counts for badges and data for active tab
+ * Badge count and data for active tab
  */
 $counts          = dcms_get_page_counts_by_status();
 $rows            = dcms_get_pages_by_status($status, $perPage, $offset);

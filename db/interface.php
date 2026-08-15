@@ -124,7 +124,7 @@ function dcms_get_page_counts_by_status(?string $db_path = null): array
   $counts = array_fill_keys(dcms_allowed_statuses(), 0);
   try {
     $placeholders = implode(',', array_fill(0, count($counts), '?'));
-    $stmt = execute_query(
+    $stmt         = execute_query(
       "SELECT status, COUNT(*) AS c FROM pages WHERE status IN ($placeholders) GROUP BY status",
       dcms_allowed_statuses(),
       $db_path
@@ -175,8 +175,8 @@ function dcms_get_pages_by_status(string $status, int $limit = 25, int $offset =
   $status = dcms_normalize_status($status);
 
   try {
-    $pdo = get_db_connection($db_path);
-    $sql = "SELECT id, title, slug FROM pages WHERE status = :status ORDER BY id DESC LIMIT :limit OFFSET :offset";
+    $pdo  = get_db_connection($db_path);
+    $sql  = "SELECT id, title, slug FROM pages WHERE status = :status ORDER BY id DESC LIMIT :limit OFFSET :offset";
     $stmt = $pdo->prepare($sql);
     $stmt->bindValue(':status', $status, PDO::PARAM_STR);
     $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -231,7 +231,7 @@ function dcms_restore_page(int $id, ?string $db_path = null): bool
  */
 function dcms_delete_page_forever(int $id, ?string $db_path = null): bool
 {
-  $stmt = execute_query("DELETE FROM pages WHERE id = :id", [':id' => $id], $db_path);
+  $stmt = execute_query("DELETE FROM pages WHERE id = :id AND status = 'trash'", [':id' => $id], $db_path);
   return $stmt->rowCount() > 0;
 }
 
@@ -297,8 +297,8 @@ function update_page(int $id, string $title, string $slug, string $content, ?str
 function update_page_status(int $id, string $status, ?string $db_path = null): bool
 {
   $status = dcms_normalize_status($status);
-  $query = "UPDATE pages SET status = :status WHERE id = :id";
-  $stmt = execute_query($query, [':status' => $status, ':id' => $id], $db_path);
+  $query  = "UPDATE pages SET status = :status WHERE id = :id";
+  $stmt   = execute_query($query, [':status' => $status, ':id' => $id], $db_path);
   return $stmt->rowCount() > 0;
 }
 
@@ -320,9 +320,9 @@ function dcms_create_page(string $title, string $slug, string $content, ?string 
       return 'Slug already exists';
     }
 
-    $pdo = get_db_connection($db_path);
+    $pdo   = get_db_connection($db_path);
     $query = "INSERT INTO pages (title, slug, content) VALUES (:title, :slug, :content)";
-    $stmt = $pdo->prepare($query);
+    $stmt  = $pdo->prepare($query);
     $stmt->execute([
       ':title'   => $title,
       ':slug'    => $slug,
