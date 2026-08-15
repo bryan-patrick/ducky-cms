@@ -1,4 +1,4 @@
-<img src="assets/svg/ducky-logo-final.svg" height="250" />
+<img src="assets/svg/ducky-logo-final.svg" height="250" alt="Ducky CMS Logo"/>
 
 # ducky-cms
 
